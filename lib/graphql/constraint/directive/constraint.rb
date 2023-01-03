@@ -15,13 +15,14 @@ module GraphQL
 
         def initialize(owner, **arguments)
           super
-          validates = validation_config(@arguments.keyword_arguments)
-          owner.validates(validates)
+          owner.validates(validation_config)
         end
 
-        def validation_config(arguments)
+        private
+
+        def validation_config
           {
-            length: arguments.filter { |key, _| LENGTH.key?(key) }.transform_keys { |key| LENGTH[key] }
+            length: arguments.keyword_arguments.filter { |key, _| LENGTH.key?(key) }.transform_keys { |key| LENGTH[key] }
           }
         end
       end
