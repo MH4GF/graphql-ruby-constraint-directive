@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "graphql"
-require "byebug"
 
 module GraphQL
   module Constraint
