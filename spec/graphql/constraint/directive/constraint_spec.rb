@@ -55,30 +55,12 @@ RSpec.describe GraphQL::Constraint::Directive::Constraint do
   end
 
   context "when valid argument" do
-    let(:variables) { { input: { text: "yo" } } }
+    let(:variables) { { input: { text: "yo", extraArgs: "foo" } } }
     let(:expected) do
       {
         "data" => {
           "sample" => {
             "text" => "yo",
-            "extraArgs" => nil
-          }
-        }
-      }
-    end
-
-    it "returns data" do
-      expect(Schema.execute(query: query, variables: variables).to_json).to be_json_as(expected)
-    end
-  end
-
-  context "with other arguments" do
-    let(:variables) { { input: { extraArgs: "foo" } } }
-    let(:expected) do
-      {
-        "data" => {
-          "sample" => {
-            "text" => nil,
             "extraArgs" => "foo"
           }
         }

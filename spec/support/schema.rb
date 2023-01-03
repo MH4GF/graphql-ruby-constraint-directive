@@ -4,14 +4,14 @@ class BaseMutation < GraphQL::Schema::RelayClassicMutation
 end
 
 class SampleMutation < BaseMutation
-  argument :text, String, required: false,
+  argument :text, String, required: true,
                           directives: { GraphQL::Constraint::Directive::Constraint => { min_length: 1, max_length: 2 } }
   argument :extra_args, String, required: false
 
   field :text, String, null: true
   field :extra_args, String, null: true
 
-  def resolve(text: nil, extra_args: nil)
+  def resolve(text:, extra_args: nil)
     {
       text: text,
       extra_args: extra_args

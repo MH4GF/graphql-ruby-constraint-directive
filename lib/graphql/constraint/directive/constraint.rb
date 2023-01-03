@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "graphql"
+require "byebug"
 
 module GraphQL
   module Constraint
@@ -29,13 +30,17 @@ module GraphQL
         def length_config
           filtered_args = arguments.keyword_arguments.filter { |key, _| LENGTH.key?(key) }
 
-          if owner.type != GraphQL::Types::String
+          if owner_type != GraphQL::Types::String
             raise ArgumentError, <<~MD
               #{filtered_args.keys.join(", ")} in @constraint can't be attached to #{owner.graphql_name} because it has to be a String type.
             MD
           end
 
           filtered_args.transform_keys { |key| LENGTH[key] }
+        end
+
+        def owner_type
+          owner.type.non_null? ? owner.type.of_type : owner.type
         end
       end
     end
