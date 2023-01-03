@@ -1,4 +1,4 @@
-# Graphql::Ruby::Constraint::Directive
+# GraphQL::Constraint::Directive
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/graphql/ruby/constraint/directive`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -8,11 +8,11 @@ TODO: Delete this and the text above, and describe your gem
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add graphql-ruby-constraint-directive
+    $ bundle add graphql-constraint-directive
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install graphql-ruby-constraint-directive
+    $ gem install graphql-constraint-directive
 
 ## Usage
 
