@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Graphql
+module GraphQL
   module Constraint
     module Directive
       VERSION = "0.1.0"

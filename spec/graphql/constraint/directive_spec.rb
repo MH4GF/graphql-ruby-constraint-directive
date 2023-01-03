@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Graphql::Constraint::Directive do
+RSpec.describe GraphQL::Constraint::Directive do
   it "has a version number" do
-    expect(Graphql::Constraint::Directive::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+    expect(GraphQL::Constraint::Directive::VERSION).not_to be nil
   end
 end

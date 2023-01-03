@@ -4,7 +4,7 @@ require_relative "lib/graphql/constraint/directive/version"
 
 Gem::Specification.new do |spec|
   spec.name = "graphql-constraint-directive"
-  spec.version = Graphql::Constraint::Directive::VERSION
+  spec.version = GraphQL::Constraint::Directive::VERSION
   spec.authors = ["MH4GF"]
   spec.email = ["h.miyagi.cnw@gmail.com"]
 
@@ -31,5 +31,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "graphql", "~> 2.0", ">= 2.0.16"
+  spec.add_runtime_dependency "graphql", "~> 2.0", "< 3"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end
