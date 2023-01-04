@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 RSpec.describe GraphQL::Constraint::Directive::Constraint do
+  shared_examples "returns response" do
+    it "returns response" do
+      expect(Schema.execute(query: query, variables: variables).to_json).to be_json_as(expected)
+    end
+  end
+
   let(:query) do
     <<~GRAPHQL
       mutation($input: SampleMutationInput!) {
         sample(input: $input) {
           text
-          extraArgs
         }
       }
     GRAPHQL
@@ -35,22 +40,32 @@ RSpec.describe GraphQL::Constraint::Directive::Constraint do
       }
     end
 
-    context "when min is violated" do
+    context "when minLength is violated" do
       let(:variables) { { input: { text: "" } } }
       let(:message) { "text is too short (minimum is 1)" }
 
-      it "is returns error" do
-        expect(Schema.execute(query: query, variables: variables).to_json).to be_json_as(expected)
-      end
+      it_behaves_like "returns response"
     end
 
-    context "when max is violated" do
+    context "when maxLength is violated" do
       let(:variables) { { input: { text: "wow" } } }
       let(:message) { "text is too long (maximum is 2)" }
 
-      it "is returns error" do
-        expect(Schema.execute(query: query, variables: variables).to_json).to be_json_as(expected)
-      end
+      it_behaves_like "returns response"
+    end
+
+    context "when min is violated" do
+      let(:variables) { { input: { text: "yo", num: 0 } } }
+      let(:message) { "num must be greater than or equal to 1" }
+
+      it_behaves_like "returns response"
+    end
+
+    context "when max is violated" do
+      let(:variables) { { input: { text: "yo", num: 3 } } }
+      let(:message) { "num must be less than or equal to 2" }
+
+      it_behaves_like "returns response"
     end
   end
 
@@ -60,15 +75,12 @@ RSpec.describe GraphQL::Constraint::Directive::Constraint do
       {
         "data" => {
           "sample" => {
-            "text" => "yo",
-            "extraArgs" => "foo"
+            "text" => "yo"
           }
         }
       }
     end
 
-    it "returns data" do
-      expect(Schema.execute(query: query, variables: variables).to_json).to be_json_as(expected)
-    end
+    it_behaves_like "returns response"
   end
 end
